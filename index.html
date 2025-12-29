@@ -1,76 +1,126 @@
-<!DOCTYPE html>
-<html lang="fr">
+<!DOCTYPE html><html lang="fr">
 <head>
 <meta charset="UTF-8">
 <title>DoughPerm</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link rel="stylesheet" href="style.css">
+<style>
+body {margin:0; font-family:Arial,sans-serif; background:#0f172a; color:#e5e7eb;}
+header {background:rgba(37,99,235,0.9); padding:20px; text-align:center;}
+header h1 {margin:0; font-size:2rem;}
+.container {max-width:1000px; margin:auto; padding:20px;}
+input {width:100%; padding:10px; margin:10px 0; border-radius:8px; border:none;}
+button {padding:5px 10px; border:none; border-radius:6px; background:#2563eb; color:white; cursor:pointer;}
+button:hover {background:#1e40af;}
+.card {background:rgba(17,24,39,0.9); border-radius:12px; padding:20px; margin-top:20px; box-shadow:0 10px 25px rgba(0,0,0,0.4);}
+table {width:100%; border-collapse:collapse;}
+th, td {padding:10px; text-align:center;}
+th {background:#1f2933; color:#93c5fd;}
+tr:hover {background:#1e293b;}
+.mythic {color:#facc15; font-weight:bold;}
+.legendary {color:#a78bfa;}
+.common {color:#60a5fa;}
+.trade-columns {display:flex; flex-wrap:wrap; justify-content:space-between; margin-top:20px;}
+.trade-column {flex:1; min-width:140px; background:#111827; margin:5px; padding:10px; border-radius:8px;}
+.trade-header {display:flex; justify-content:space-between; margin-bottom:10px;}
+.trade-slot {background:#1f2937; margin:5px 0; padding:8px; border-radius:6px; min-height:30px; display:flex; justify-content:space-between; align-items:center;}
+.trade-slot.empty {opacity:0.5;}
+footer {margin-top:40px; font-size:12px; text-align:center; color:#9ca3af;}
+@media (max-width:600px) {.trade-columns {flex-direction:column;}}
+</style>
 </head>
 <body>
-
 <header>
-  <h1>🍍 DoughPerm</h1>
-  <p>Valeurs communautaires & trade équilibrés Blox Fruits</p>
+<h1>🍍 DoughPerm</h1>
+<p>Valeurs communautaires & trade équilibrés Blox Fruits</p>
 </header>
-
 <div class="container">
-
-  <!-- RECHERCHE -->
-  <input type="text" id="search" placeholder="🔍 Rechercher un fruit...">
-
-  <!-- TABLEAU DES FRUITS -->
-  <div class="card">
-    <h2>📊 Tous les Fruits</h2>
-    <table id="fruitTable">
-      <tr>
-        <th>Fruit</th>
-        <th>Physique 💎</th>
-        <th>Permanent 💎</th>
-        <th>Ajouter ➕</th>
-      </tr>
-      <!-- Exemple fruits, tu peux ajouter tous les autres -->
-      <tr>
-        <td class="mythic">Dragon</td><td>1275000000</td><td>2805000000</td>
-        <td><button onclick="addTrade('Dragon',1275000000,2805000000,'give')">+</button></td>
-      </tr>
-      <tr>
-        <td class="mythic">Kitsune</td><td>255000000</td><td>2040000000</td>
-        <td><button onclick="addTrade('Kitsune',255000000,2040000000,'give')">+</button></td>
-      </tr>
-      <tr>
-        <td class="legendary">Buddha</td><td>8000000</td><td>685000000</td>
-        <td><button onclick="addTrade('Buddha',8000000,685000000,'give')">+</button></td>
-      </tr>
-      <tr>
-        <td class="common">Ice</td><td>550000</td><td>310000000</td>
-        <td><button onclick="addTrade('Ice',550000,310000000,'give')">+</button></td>
-      </tr>
-    </table>
-  </div>
-
-  <!-- CALCULATEUR DE TRADE -->
-  <div class="card">
-    <h2>⚖️ Trade Calculator</h2>
-    <div class="trade-columns">
-      <div class="trade-column">
-        <h3>Tu Donnes</h3>
-        <ul id="giveList"></ul>
-      </div>
-      <div class="trade-column">
-        <h3>Tu Reçois</h3>
-        <ul id="receiveList"></ul>
-      </div>
-    </div>
-    <p id="diffText">Différence totale: 0</p>
-  </div>
-
-  <footer>
-    <p>Les valeurs sont basées sur les tendances de la communauté Blox Fruits.<br>
-    Ce site est indépendant et n’est pas affilié à Roblox ou à des sites officiels.</p>
-  </footer>
-
+<input type="text" id="search" placeholder="🔍 Rechercher un fruit...">
+<div class="card">
+<h2>📊 See Value of Fruit</h2>
+<table id="fruitTable">
+<tr><th>Fruit – On a gagné sans payer avec des Robux</th><th>Permanent 💎</th><th>Ajouter ➕</th></tr>
+<!-- Fruits classiques Mythic -->
+<tr><td class="mythic">Dragon</td><td>2805000000</td><td><button onclick="addToTrade('Dragon',2805000000,'give')">+</button></td></tr>
+<tr><td class="mythic">Kitsune</td><td>2040000000</td><td><button onclick="addToTrade('Kitsune',2040000000,'give')">+</button></td></tr>
+<tr><td class="mythic">Gravity</td><td>1900000000</td><td><button onclick="addToTrade('Gravity',1900000000,'give')">+</button></td></tr>
+<tr><td class="mythic">Mammoth</td><td>1700000000</td><td><button onclick="addToTrade('Mammoth',1700000000,'give')">+</button></td></tr>
+<tr><td class="mythic">T-Rex</td><td>1600000000</td><td><button onclick="addToTrade('T-Rex',1600000000,'give')">+</button></td></tr><!-- Fruits Legendary --><tr><td class="legendary">Buddha</td><td>685000000</td><td><button onclick="addToTrade('Buddha',685000000,'give')">+</button></td></tr>
+<tr><td class="legendary">Love</td><td>650000000</td><td><button onclick="addToTrade('Love',650000000,'give')">+</button></td></tr>
+<tr><td class="legendary">Spider</td><td>600000000</td><td><button onclick="addToTrade('Spider',600000000,'give')">+</button></td></tr>
+<tr><td class="legendary">Sound</td><td>590000000</td><td><button onclick="addToTrade('Sound',590000000,'give')">+</button></td></tr>
+<tr><td class="legendary">Phoenix</td><td>1500000000</td><td><button onclick="addToTrade('Phoenix',1500000000,'give')">+</button></td></tr>
+<tr><td class="legendary">Quake</td><td>450000000</td><td><button onclick="addToTrade('Quake',450000000,'give')">+</button></td></tr>
+<tr><td class="legendary">Tiger</td><td>900000000</td><td><button onclick="addToTrade('Tiger',900000000,'give')">+</button></td></tr>
+<tr><td class="legendary">Werewolf</td><td>950000000</td><td><button onclick="addToTrade('Werewolf',950000000,'give')">+</button></td></tr><!-- Fruits Common --><tr><td class="common">Ice</td><td>310000000</td><td><button onclick="addToTrade('Ice',310000000,'give')">+</button></td></tr>
+<tr><td class="common">Flame</td><td>320000000</td><td><button onclick="addToTrade('Flame',320000000,'give')">+</button></td></tr>
+<tr><td class="common">Smoke</td><td>270000000</td><td><button onclick="addToTrade('Smoke',270000000,'give')">+</button></td></tr>
+<tr><td class="common">Sand</td><td>300000000</td><td><button onclick="addToTrade('Sand',300000000,'give')">+</button></td></tr>
+<tr><td class="common">Dark</td><td>290000000</td><td><button onclick="addToTrade('Dark',290000000,'give')">+</button></td></tr>
+<tr><td class="common">Diamond</td><td>280000000</td><td><button onclick="addToTrade('Diamond',280000000,'give')">+</button></td></tr>
+<tr><td class="common">Spike</td><td>260000000</td><td><button onclick="addToTrade('Spike',260000000,'give')">+</button></td></tr>
+<tr><td class="common">Bomb</td><td>250000000</td><td><button onclick="addToTrade('Bomb',250000000,'give')">+</button></td></tr>
+<tr><td class="common">Spring</td><td>240000000</td><td><button onclick="addToTrade('Spring',240000000,'give')">+</button></td></tr>
+<tr><td class="common">Chop</td><td>230000000</td><td><button onclick="addToTrade('Chop',230000000,'give')">+</button></td></tr>
+<tr><td class="common">Spin</td><td>220000000</td><td><button onclick="addToTrade('Spin',220000000,'give')">+</button></td></tr>
+<tr><td class="common">Rocket</td><td>210000000</td><td><button onclick="addToTrade('Rocket',210000000,'give')">+</button></td></tr><!-- Fruits Noël --><tr><td class="legendary">Snow</td><td>300000000</td><td><button onclick="addToTrade('Snow',300000000,'give')">+</button></td></tr>
+<tr><td class="legendary">Candy Cane</td><td>320000000</td><td><button onclick="addToTrade('Candy Cane',320000000,'give')">+</button></td></tr>
+<tr><td class="legendary">Gingerbread</td><td>350000000</td><td><button onclick="addToTrade('Gingerbread',350000000,'give')">+</button></td></tr></table>
 </div>
-
-<script src="script.js"></script>
+<div class="card">
+<h2>⚖️ Trade Value</h2>
+<div class="trade-columns">
+<div class="trade-column" id="giveColumn">
+<div class="trade-header"><span>Tu Donnes</span><span id="giveTotal">0</span></div>
+<div class="trade-slots">
+<div class="trade-slot empty" data-index="0"></div>
+<div class="trade-slot empty" data-index="1"></div>
+<div class="trade-slot empty" data-index="2"></div>
+<div class="trade-slot empty" data-index="3"></div>
+</div>
+</div>
+<div class="trade-column" id="receiveColumn">
+<div class="trade-header"><span>Tu Reçois</span><span id="receiveTotal">0</span></div>
+<div class="trade-slots">
+<div class="trade-slot empty" data-index="0"></div>
+<div class="trade-slot empty" data-index="1"></div>
+<div class="trade-slot empty" data-index="2"></div>
+<div class="trade-slot empty" data-index="3"></div>
+</div>
+</div>
+</div>
+<p id="diffText">Différence: 0 ⚖️</p>
+</div>
+<footer>
+<p>Les valeurs sont basées sur les tendances de la communauté Blox Fruits.<br>Ce site est indépendant et n’est pas affilié à Roblox ou à des sites officiels.</p>
+</footer>
+<script>
+document.getElementById("search").addEventListener("keyup", function(){
+  let value=this.value.toLowerCase();
+  document.querySelectorAll("#fruitTable tr").forEach((row,index)=>{if(index===0)return;row.style.display=row.textContent.toLowerCase().includes(value)?'':'none';});
+});
+let giveSlots=[null,null,null,null];
+let receiveSlots=[null,null,null,null];
+function addToTrade(name,value,side){
+  let targetArray=(side==='give')?giveSlots:receiveSlots;
+  for(let i=0;i<4;i++){if(targetArray[i]==null){targetArray[i]={name,value};updateTradeDisplay();return;}}
+  alert("Toutes les 4 cases sont remplies dans cette colonne !");
+}
+function updateTradeDisplay(){
+  ['give','receive'].forEach(col=>{
+    let slots=(col==='give')?giveSlots:receiveSlots;
+    let columnDiv=document.getElementById(col+'Column').querySelectorAll('.trade-slot');
+    let total=0;
+    for(let i=0;i<4;i++){
+      let slot=slots[i];
+      let slotDiv=columnDiv[i];
+      if(slot){slotDiv.textContent=slot.name+": "+slot.value.toLocaleString();slotDiv.classList.remove('empty');total+=slot.value;}
+      else{slotDiv.textContent="";slotDiv.classList.add('empty');}
+    }
+    document.getElementById(col+'Total').textContent=total.toLocaleString();
+  });
+  let diff=receiveSlots.reduce((a,b)=>a+(b?b.value:0),0)-giveSlots.reduce((a,b)=>a+(b?b.value:0),0);
+  let text='Différence: '+diff.toLocaleString()+' ';if(diff>0)text+='✅ Bon trade';else if(diff<0)text+='⚠️ Mauvais trade';else text+='⚖️ Trade équilibré';document.getElementById('diffText').textContent=text;
+}
+</script>
 </body>
 </html>
