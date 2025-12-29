@@ -1,237 +1,186 @@
 <!DOCTYPE html><html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dough Value 🍍</title>
-    <style>
-        body {
-            margin: 0;
-            font-family: Arial, sans-serif;
-            background: url('https://i.pinimg.com/236x/c8/dc/b4/c8dcb4fc27ff78886b1014bd866a1864.jpg') no-repeat center center fixed;
-            background-size: cover;
-            color: #e5e7eb;
-        }
-        header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 10px 20px;
-            background-color: rgba(0,0,0,0.7);
-        }
-        header h1 {
-            font-size: 2em;
-        }
-        .btn-container button {
-            margin-left: 10px;
-            padding: 10px 20px;
-            font-size: 1em;
-            cursor: pointer;
-            background-color: #ffcc00;
-            border: none;
-            border-radius: 5px;
-        }
-        .btn-container button.active {
-            background-color: #00ccff;
-        }
-        .section {
-            display: none;
-            padding: 20px;
-            background-color: rgba(0,0,0,0.6);
-            margin: 20px;
-            border-radius: 10px;
-        }
-        table {
-            width: 100%;
-            border-collapse: collapse;
-        }
-        table, th, td {
-            border: 1px solid #fff;
-        }
-        th, td {
-            padding: 10px;
-            text-align: center;
-        }
-        .fruit-img {
-            width: 40px;
-            height: 40px;
-        }
-        .trade-container {
-            display: flex;
-            justify-content: space-around;
-        }
-        .trade-column {
-            background-color: rgba(255,255,255,0.1);
-            padding: 10px;
-            border-radius: 10px;
-            width: 45%;
-        }
-        .trade-slot {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            margin: 10px 0;
-            background-color: rgba(0,0,0,0.5);
-            padding: 5px;
-            border-radius: 5px;
-        }
-        .trade-slot img {
-            width: 40px;
-            height: 40px;
-        }
-        .trade-slot button {
-            padding: 5px 10px;
-            cursor: pointer;
-            background-color: #ff9900;
-            border: none;
-            border-radius: 5px;
-        }
-        .trade-result {
-            margin-top: 20px;
-            font-size: 1.5em;
-            text-align: center;
-        }
-        .fruit-select {
-            display: none;
-            background-color: rgba(0,0,0,0.8);
-            padding: 10px;
-            border-radius: 10px;
-            max-height: 200px;
-            overflow-y: auto;
-            margin-top: 10px;
-        }
-        .fruit-select img {
-            width: 40px;
-            height: 40px;
-            cursor: pointer;
-            margin: 5px;
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dough Value 🍍</title>
+<style>
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: url('https://i.pinimg.com/236x/c8/dc/b4/c8dcb4fc27ff78886b1014bd866a1864.jpg') no-repeat center center fixed;
+    background-size: cover;
+    color: #e5e7eb;
+}
+header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    background-color: rgba(0,0,0,0.6);
+    flex-direction: column;
+}
+header h1 {
+    font-size: 2.5em;
+    margin: 0 0 10px 0;
+}
+.center-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+}
+.center-buttons button {
+    padding: 15px 25px;
+    font-size: 1.2em;
+    cursor: pointer;
+    border: none;
+    border-radius: 8px;
+    background-color: #ffcc00;
+    transition: 0.2s;
+}
+.center-buttons button.active { background-color: #00ccff; }
+.center-buttons button:hover { transform: scale(1.05); }
+.section {
+    display: none;
+    padding: 20px;
+    margin: 20px;
+    background-color: rgba(0,0,0,0.7);
+    border-radius: 10px;
+}
+table { width: 100%; border-collapse: collapse; }
+th, td { padding: 10px; text-align: center; border: 1px solid #fff; }
+th { background: #1f2933; color: #93c5fd; }
+tr:hover { background: rgba(255,255,255,0.1); }
+.fruit-img { width: 40px; height: 40px; }
+#searchInput { width: 100%; padding: 10px; margin-bottom: 15px; border-radius: 8px; border: none; }
+.trade-container { display: flex; justify-content: space-around; flex-wrap: wrap; }
+.trade-column { background-color: rgba(0,0,0,0.5); padding: 10px; border-radius: 10px; width: 45%; min-width: 250px; margin-bottom: 20px; }
+.trade-slot { display: flex; justify-content: space-between; align-items: center; padding: 5px; background-color: rgba(255,255,255,0.1); margin: 5px 0; border-radius: 5px; }
+.trade-slot img { width: 40px; height: 40px; }
+.trade-slot button { padding: 5px 10px; cursor: pointer; background-color: #ff9900; border: none; border-radius: 5px; }
+.trade-result { text-align: center; font-size: 1.5em; margin-top: 20px; }
+.fruit-select { display: none; background-color: rgba(0,0,0,0.8); padding: 10px; border-radius: 10px; max-height: 200px; overflow-y: auto; margin-top: 10px; }
+.fruit-select img { width: 40px; height: 40px; cursor: pointer; margin: 5px; }
+@media (max-width:600px) { .trade-container { flex-direction: column; } }
+</style>
 </head>
-<body><header>
-    <h1>Dough Value 🍍</h1>
-    <div class="btn-container">
-        <button id="valueBtn" class="active">Value</button>
-        <button id="tradeBtn">Trading Value</button>
-    </div>
+<body>
+<header>
+<h1>Dough Value 🍍</h1>
+<div class="center-buttons">
+<button id="valueBtn" class="active">Value</button>
+<button id="tradeBtn">Trading Value</button>
+</div>
 </header><div id="valueSection" class="section" style="display:block;">
-    <table>
-        <thead>
-            <tr>
-                <th>Fruit</th>
-                <th>Value</th>
-            </tr>
-        </thead>
-        <tbody id="fruitTable">
-            <tr><td><img src="images/dragon.png" class="fruit-img"> Dragon</td><td>900k</td></tr>
-            <tr><td><img src="images/kitsune.png" class="fruit-img"> Kitsune</td><td>700k</td></tr>
-            <tr><td><img src="images/rocket.png" class="fruit-img"> Rocket</td><td>50</td></tr>
-            <tr><td><img src="images/ice.png" class="fruit-img"> Ice</td><td>150k</td></tr>
-            <tr><td><img src="images/flame.png" class="fruit-img"> Flame</td><td>200k</td></tr>
-            <tr><td><img src="images/gravity.png" class="fruit-img"> Gravity</td><td>800k</td></tr>
-            <tr><td><img src="images/light.png" class="fruit-img"> Light</td><td>600k</td></tr>
-            <tr><td><img src="images/rubber.png" class="fruit-img"> Rubber</td><td>300k</td></tr>
-            <tr><td><img src="images/buddha.png" class="fruit-img"> Buddha</td><td>500k</td></tr>
-            <tr><td><img src="images/t-rex.png" class="fruit-img"> T-Rex</td><td>400k</td></tr>
-        </tbody>
-    </table>
+<input type="text" id="searchInput" placeholder="Search fruit...">
+<table>
+<thead>
+<tr><th>Fruit</th><th>Image</th><th>Permanent Value</th><th>Base Value</th></tr>
+</thead>
+<tbody id="fruitTable">
+<!-- Fruits seront ajoutés par JS -->
+</tbody>
+</table>
 </div><div id="tradeSection" class="section">
-    <div class="trade-container">
-        <div class="trade-column" id="giveColumn">
-            <h3>Tu Donnes</h3>
-            <button onclick="toggleSelect('give')">+</button>
-            <div class="fruit-select" id="giveSelect"></div>
-            <div class="trade-slot" id="giveSlot1"></div>
-            <div class="trade-slot" id="giveSlot2"></div>
-            <div class="trade-slot" id="giveSlot3"></div>
-            <div class="trade-slot" id="giveSlot4"></div>
-        </div>
-        <div class="trade-column" id="receiveColumn">
-            <h3>Tu Reçois</h3>
-            <button onclick="toggleSelect('receive')">+</button>
-            <div class="fruit-select" id="receiveSelect"></div>
-            <div class="trade-slot" id="receiveSlot1"></div>
-            <div class="trade-slot" id="receiveSlot2"></div>
-            <div class="trade-slot" id="receiveSlot3"></div>
-            <div class="trade-slot" id="receiveSlot4"></div>
-        </div>
-    </div>
-    <div class="trade-result" id="tradeResult">Résultat ici</div>
+<div class="trade-container">
+<div class="trade-column" id="giveColumn">
+<h3>Tu Donnes</h3>
+<button onclick="toggleSelect('give')">+</button>
+<div class="fruit-select" id="giveSelect"></div>
+<div class="trade-slot" id="giveSlot1"></div>
+<div class="trade-slot" id="giveSlot2"></div>
+<div class="trade-slot" id="giveSlot3"></div>
+<div class="trade-slot" id="giveSlot4"></div>
+</div>
+<div class="trade-column" id="receiveColumn">
+<h3>Tu Reçois</h3>
+<button onclick="toggleSelect('receive')">+</button>
+<div class="fruit-select" id="receiveSelect"></div>
+<div class="trade-slot" id="receiveSlot1"></div>
+<div class="trade-slot" id="receiveSlot2"></div>
+<div class="trade-slot" id="receiveSlot3"></div>
+<div class="trade-slot" id="receiveSlot4"></div>
+</div>
+</div>
+<div class="trade-result" id="tradeResult">Résultat ici</div>
 </div><script>
 const valueBtn = document.getElementById('valueBtn');
 const tradeBtn = document.getElementById('tradeBtn');
 const valueSection = document.getElementById('valueSection');
 const tradeSection = document.getElementById('tradeSection');
-
-valueBtn.onclick = () => {
-    valueSection.style.display = 'block';
-    tradeSection.style.display = 'none';
-    valueBtn.classList.add('active');
-    tradeBtn.classList.remove('active');
-};
-tradeBtn.onclick = () => {
-    valueSection.style.display = 'none';
-    tradeSection.style.display = 'block';
-    tradeBtn.classList.add('active');
-    valueBtn.classList.remove('active');
-    populateSelects();
-};
+valueBtn.onclick = () => { valueSection.style.display='block'; tradeSection.style.display='none'; valueBtn.classList.add('active'); tradeBtn.classList.remove('active'); };
+tradeBtn.onclick = () => { valueSection.style.display='none'; tradeSection.style.display='block'; tradeBtn.classList.add('active'); valueBtn.classList.remove('active'); populateSelects(); };
 
 const fruits = [
-    {name:'Dragon', value:900000, img:'images/dragon.png'},
-    {name:'Kitsune', value:700000, img:'images/kitsune.png'},
-    {name:'Rocket', value:50, img:'images/rocket.png'},
-    {name:'Ice', value:150000, img:'images/ice.png'},
-    {name:'Flame', value:200000, img:'images/flame.png'},
-    {name:'Gravity', value:800000, img:'images/gravity.png'},
-    {name:'Light', value:600000, img:'images/light.png'},
-    {name:'Rubber', value:300000, img:'images/rubber.png'},
-    {name:'Buddha', value:500000, img:'images/buddha.png'},
-    {name:'T-Rex', value:400000, img:'images/t-rex.png'}
+{name:'Dragon', perm:'4 Dragon → 900M', value:900000, img:'[image]'},
+{name:'Kitsune', perm:'3 Kitsune → 700M', value:700000, img:'[image]'},
+{name:'Rocket', perm:'50 Rocket → 50', value:50, img:'[image]'},
+{name:'Ice', perm:'2 Ice → 150M', value:150000, img:'[image]'},
+{name:'Flame', perm:'2 Flame → 200M', value:200000, img:'[image]'},
+{name:'Gravity', perm:'1 Gravity → 800M', value:800000, img:'[image]'},
+{name:'Light', perm:'1 Light → 600M', value:600000, img:'[image]'},
+{name:'Rubber', perm:'2 Rubber → 300M', value:300000, img:'[image]'},
+{name:'Buddha', perm:'1 Buddha → 500M', value:500000, img:'[image]'},
+{name:'T-Rex', perm:'1 T-Rex → 400M', value:400000, img:'[image]'},
+{name:'Flare', perm:'1 Flare → 350M', value:350000, img:'[image]'},
+{name:'Spider', perm:'1 Spider → 250M', value:250000, img:'[image]'},
+{name:'Pain', perm:'1 Pain → 220M', value:220000, img:'[image]'},
+{name:'Venom', perm:'1 Venom → 180M', value:180000, img:'[image]'},
+{name:'Smoke', perm:'1 Smoke → 160M', value:160000, img:'[image]'},
+{name:'Diamond', perm:'1 Diamond → 150M', value:150000, img:'[image]'}
 ];
 
+const fruitTable = document.getElementById('fruitTable');
+function populateTable(){
+    fruitTable.innerHTML='';
+    fruits.forEach(f=>{
+        const tr = document.createElement('tr');
+        tr.innerHTML=`<td>${f.name}</td><td>${f.img}</td><td>${f.perm}</td><td>${f.value.toLocaleString()}</td>`;
+        fruitTable.appendChild(tr);
+    });
+}
+populateTable();
+
+const searchInput = document.getElementById('searchInput');
+searchInput.addEventListener('input', ()=>{
+    const filter = searchInput.value.toLowerCase();
+    fruitTable.innerHTML='';
+    fruits.filter(f=>f.name.toLowerCase().includes(filter)).forEach(f=>{
+        const tr = document.createElement('tr');
+        tr.innerHTML=`<td>${f.name}</td><td>${f.img}</td><td>${f.perm}</td><td>${f.value.toLocaleString()}</td>`;
+        fruitTable.appendChild(tr);
+    });
+});
+
+// Trading Value JS
 function populateSelects(){
     const giveSelect = document.getElementById('giveSelect');
     const receiveSelect = document.getElementById('receiveSelect');
     giveSelect.innerHTML='';
     receiveSelect.innerHTML='';
     fruits.forEach(fruit=>{
-        const imgGive = document.createElement('img');
-        imgGive.src = fruit.img;
-        imgGive.title = fruit.name;
-        imgGive.onclick = () => addToSlot('give', fruit);
+        const imgGive = document.createElement('img'); imgGive.src=fruit.img; imgGive.title=fruit.name;
+        imgGive.onclick = ()=>addToSlot('give', fruit);
         giveSelect.appendChild(imgGive);
-
-        const imgReceive = document.createElement('img');
-        imgReceive.src = fruit.img;
-        imgReceive.title = fruit.name;
-        imgReceive.onclick = () => addToSlot('receive', fruit);
+        const imgReceive = document.createElement('img'); imgReceive.src=fruit.img; imgReceive.title=fruit.name;
+        imgReceive.onclick = ()=>addToSlot('receive', fruit);
         receiveSelect.appendChild(imgReceive);
     });
 }
 
-function toggleSelect(side){
-    const select = document.getElementById(side+'Select');
-    select.style.display = select.style.display==='block'?'none':'block';
-}
+function toggleSelect(side){ document.getElementById(side+'Select').style.display = document.getElementById(side+'Select').style.display==='block'?'none':'block'; }
 
 const slots = {give:[], receive:[]};
-
-function addToSlot(side, fruit){
-    if(slots[side].length>=4) return;
-    slots[side].push(fruit);
-    updateSlots();
-}
-
+function addToSlot(side, fruit){ if(slots[side].length>=4) return; slots[side].push(fruit); updateSlots(); }
+function removeFromSlot(side, index){ slots[side].splice(index,1); updateSlots(); }
 function updateSlots(){
     for(let i=1;i<=4;i++){
         const giveSlot = document.getElementById('giveSlot'+i);
         const receiveSlot = document.getElementById('receiveSlot'+i);
-        giveSlot.innerHTML = slots.give[i-1]?`<img src='${slots.give[i-1].img}'> ${slots.give[i-1].name} (${slots.give[i-1].value.toLocaleString()})` : '';
-        receiveSlot.innerHTML = slots.receive[i-1]?`<img src='${slots.receive[i-1].img}'> ${slots.receive[i-1].name} (${slots.receive[i-1].value.toLocaleString()})` : '';
+        giveSlot.innerHTML = slots.give[i-1]?`<img src='${slots.give[i-1].img}'> ${slots.give[i-1].name} (${slots.give[i-1].value.toLocaleString()}) <button onclick='removeFromSlot("give",${i-1})'>x</button>`:'';
+        receiveSlot.innerHTML = slots.receive[i-1]?`<img src='${slots.receive[i-1].img}'> ${slots.receive[i-1].name} (${slots.receive[i-1].value.toLocaleString()}) <button onclick='removeFromSlot("receive",${i-1})'>x</button>`:'';
     }
     calculateResult();
 }
-
 function calculateResult(){
     const giveTotal = slots.give.reduce((a,b)=>a+b.value,0);
     const receiveTotal = slots.receive.reduce((a,b)=>a+b.value,0);
@@ -241,4 +190,4 @@ function calculateResult(){
     else result.textContent='BALANCED';
 }
 </script></body>
-              </html>
+</html>
